@@ -1,0 +1,11 @@
+.idea
+.DS_Store
+*.gif
+*.png
+build
+appdata
+dist
+*.ico
+*.icns
+__pycache__
+*.paint

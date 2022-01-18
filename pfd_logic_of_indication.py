@@ -6,15 +6,15 @@ import Second_win
 
 
 class pwd_logic:
-    # Определение рабочей папки
-    if getattr(sys, 'frozen', False):
-        application_path = os.path.dirname(sys.executable)
-    elif __file__:
-        application_path = os.path.dirname(__file__)
-
-    config_path = os.path.join(application_path) + "/appdata"
-
     def __init__(self, master):
+
+        # Определение рабочей папки
+        if getattr(sys, 'frozen', False):
+            application_path = os.path.dirname(sys.executable)
+        elif __file__:
+            application_path = os.path.dirname(__file__)
+
+        config_path = os.path.join(application_path) + "/appdata"
 
         self.choose_indicate = 'Индикация не выбрана'
         self.acts = [
@@ -22,14 +22,14 @@ class pwd_logic:
             'Индикация положения РУМК', 'Индикация положения правого элерона'
         ]
 
-        self.img_PFD = Image.open('PFD.jpg')
-        self.img_PFD = self.img_PFD.resize((500, 500), Image.ANTIALIAS)
+        self.img_PFD = Image.open(config_path +'/PFD.jpg')
+        self.img_PFD = self.img_PFD.resize((422, 410), Image.ANTIALIAS)
         self.ewd = ImageTk.PhotoImage(self.img_PFD)
 
         # Create window.
         self.win = master
         self.win.title('Индикация PFD')
-        self.win.geometry('960x422')
+        self.win.geometry('620x422')
 
         # Create frames.
         self.fr_main = Frame(self.win)
@@ -59,14 +59,12 @@ class pwd_logic:
             self.lb.insert(END, i)
 
         self.lb.bind("<<ListboxSelect>>", self.select_indicate)
-        self.lb.bind("<<ListboxSelect>>", self.btn_open_logic.focus_set)
 
         self.lb.pack(fill=Y)
 
         self.var = StringVar()
         self.btn_open_logic = Button(self.fr_main, text='Open')
         self.btn_open_logic.bind('<Button-1>', self.open_indicate)
-        self.btn_open_logic.bind('<Enter>', self.open_indicate)
         self.btn_open_logic.pack()
 
         self.fr_main.pack(side=LEFT, fill=Y)
