@@ -29,7 +29,7 @@ class pwd_logic:
         # Create window.
         self.win = master
         self.win.title('Индикация PFD')
-        self.win.geometry('620x422')
+        self.win.geometry('715x422')
 
         # Create frames.
         self.fr_main = Frame(self.win)
@@ -47,7 +47,7 @@ class pwd_logic:
         self.scroll_y.pack(side=RIGHT, fill=Y)
         self.scroll_x.pack(side=BOTTOM, fill=X)
 
-        self.lb = Listbox(self.fr_list_box, xscrollcommand=self.scroll_x.set, yscrollcommand=self.scroll_y.set, height=20)
+        self.lb = Listbox(self.fr_list_box, xscrollcommand=self.scroll_x.set, yscrollcommand=self.scroll_y.set, height=20, width=30)
 
         self.scroll_y.config(command=self.lb.yview)
         self.scroll_x.config(command=self.lb.xview)

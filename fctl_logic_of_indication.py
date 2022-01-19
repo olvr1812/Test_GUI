@@ -6,10 +6,11 @@ import Main_GUI
 import Second_win
 
 
-class ewd_logic:
+class fctl_logic:
 
     def __init__(self, master):
         # Определение рабочей папки
+        self.newWindow = None
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
         elif __file__:
@@ -23,13 +24,14 @@ class ewd_logic:
             'Индикация положения РУМК', 'Индикация положения правого элерона'
         ]
 
-        self.img_EWD = Image.open(config_path + '/EWD.png')
-        self.ewd = ImageTk.PhotoImage(self.img_EWD)
+        self.img_FCTL = Image.open(config_path + '/FCTL.png')
+        self.img_FCTL = self.img_FCTL.resize((564, 422), Image.ANTIALIAS)
+        self.fctl = ImageTk.PhotoImage(self.img_FCTL)
 
         # Create window.
         self.win = master
-        self.win.title('Индикация EWD')
-        self.win.geometry('1060x422')
+        self.win.title('Индикация FCTL')
+        self.win.geometry('850x422')
 
         # Create frames.
         self.fr_main = Frame(self.win)
@@ -38,8 +40,8 @@ class ewd_logic:
         # Button for close.
         self.btn_close = Button(self.fr_main, text='Close', command=self.close_window)
 
-        self.canvas = Canvas(self.win, width=765, height=422)
-        self.image = self.canvas.create_image(0, 0, image=self.ewd, anchor=NW)
+        self.canvas = Canvas(self.win, width=564, height=422)
+        self.image = self.canvas.create_image(0, 0, image=self.fctl, anchor=NW)
 
         self.scroll_x = Scrollbar(self.fr_list_box, orient=HORIZONTAL)
         self.scroll_y = Scrollbar(self.fr_list_box, orient=VERTICAL)
@@ -50,9 +52,6 @@ class ewd_logic:
 
         self.scroll_y.config(command=self.lb.yview)
         self.scroll_x.config(command=self.lb.xview)
-
-
-
 
         for i in self.acts:
             self.lb.insert(END, i)
@@ -70,7 +69,6 @@ class ewd_logic:
         self.canvas.pack(side=RIGHT)
         self.fr_list_box.pack(fill=BOTH)
         self.btn_close.pack()
-
 
     def open_indicate(self, event):
         if self.choose_indicate == 'Индикация положения РУМК':

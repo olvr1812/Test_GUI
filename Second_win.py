@@ -9,9 +9,10 @@ import tkcap
 
 #import Main_GUI
 #from Main_GUI import Main_app
+import Main_GUI
 
 
-class app_6_3_8:
+class app_6_3_8(Main_GUI.main_app):
     # Определение рабочей папки
     if getattr(sys, 'frozen', False):
         application_path = os.path.dirname(sys.executable)
