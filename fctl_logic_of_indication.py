@@ -1,9 +1,10 @@
 from tkinter import *
 from pyautogui import *
 from PIL import Image, ImageTk
+from pandas import *
 
 import Main_GUI
-import Second_win
+import indicate_6_3_8
 
 
 class fctl_logic:
@@ -18,11 +19,11 @@ class fctl_logic:
 
         config_path = os.path.join(application_path) + "/appdata"
 
+        xl_new = read_excel(config_path + '/List_indication.xlsx')
+        FCTL_logic = xl_new['Индикация FCTL'].dropna().tolist()
+
         self.choose_indicate = 'Индикация не выбрана'
-        self.acts = [
-            'Индикация состояния канала СДУ', 'Индикация положения левого РВ',
-            'Индикация положения РУМК', 'Индикация положения правого элерона'
-        ]
+        self.acts = FCTL_logic
 
         self.img_FCTL = Image.open(config_path + '/FCTL.png')
         self.img_FCTL = self.img_FCTL.resize((564, 422), Image.ANTIALIAS)

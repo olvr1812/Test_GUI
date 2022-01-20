@@ -1,8 +1,8 @@
 from tkinter import *
 from pyautogui import *
 from PIL import Image, ImageTk
-
-import Second_win
+from pandas import *
+import indicate_6_3_8
 
 
 class pwd_logic:
@@ -16,11 +16,14 @@ class pwd_logic:
 
         config_path = os.path.join(application_path) + "/appdata"
 
+        xl_new = read_excel(config_path + '/List_indication.xlsx')
+
+        PFD_logic = xl_new['Индикация PFD'].dropna().tolist()
+        print(PFD_logic)
+
         self.choose_indicate = 'Индикация не выбрана'
-        self.acts = [
-            'Индикация состояния канала СДУ', 'Индикация положения левого РВ',
-            'Индикация положения РУМК', 'Индикация положения правого элерона'
-        ]
+        self.acts = PFD_logic
+        print(PFD_logic)
 
         self.img_PFD = Image.open(config_path +'/PFD.jpg')
         self.img_PFD = self.img_PFD.resize((422, 410), Image.ANTIALIAS)
@@ -41,13 +44,12 @@ class pwd_logic:
         self.canvas = Canvas(self.win, width=765, height=422)
         self.image = self.canvas.create_image(0, 0, image=self.ewd, anchor=NW)
 
-
         self.scroll_x = Scrollbar(self.fr_list_box, orient=HORIZONTAL)
         self.scroll_y = Scrollbar(self.fr_list_box, orient=VERTICAL)
         self.scroll_y.pack(side=RIGHT, fill=Y)
         self.scroll_x.pack(side=BOTTOM, fill=X)
 
-        self.lb = Listbox(self.fr_list_box, xscrollcommand=self.scroll_x.set, yscrollcommand=self.scroll_y.set, height=20, width=30)
+        self.lb = Listbox(self.fr_list_box, xscrollcommand=self.scroll_x.set, yscrollcommand=self.scroll_y.set, width=30)
 
         self.scroll_y.config(command=self.lb.yview)
         self.scroll_x.config(command=self.lb.xview)

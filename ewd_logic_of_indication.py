@@ -1,14 +1,16 @@
 from tkinter import *
 from pyautogui import *
 from PIL import Image, ImageTk
+from pandas import *
 
 import Main_GUI
-import Second_win
+import indicate_6_3_8
 
 
 class ewd_logic:
 
     def __init__(self, master):
+
         # Определение рабочей папки
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
@@ -17,11 +19,11 @@ class ewd_logic:
 
         config_path = os.path.join(application_path) + "/appdata"
 
+        xl_new = read_excel(config_path + '/List_indication.xlsx')
+        EWD_logic = xl_new['Индикация EWD'].dropna().tolist()
+
         self.choose_indicate = 'Индикация не выбрана'
-        self.acts = [
-            'Индикация состояния канала СДУ', 'Индикация положения левого РВ',
-            'Индикация положения РУМК', 'Индикация положения правого элерона'
-        ]
+        self.acts = EWD_logic
 
         self.img_EWD = Image.open(config_path + '/EWD.png')
         self.ewd = ImageTk.PhotoImage(self.img_EWD)
@@ -75,7 +77,7 @@ class ewd_logic:
     def open_indicate(self, event):
         if self.choose_indicate == 'Индикация положения РУМК':
             self.newWindow = Toplevel(self.win)
-            self.app = Second_win.app_6_3_8(self.newWindow)
+            self.app = indicate_6_3_8.app_6_3_8(self.newWindow)
         else:
             self.var.set('Данный параметр не задан')
 
@@ -89,4 +91,3 @@ class ewd_logic:
 
     def close_window(self):
         self.win.destroy()
-        Main_GUI.open_again()

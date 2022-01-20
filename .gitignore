@@ -9,3 +9,4 @@ dist
 *.icns
 __pycache__
 *.paint
+for_tests.py

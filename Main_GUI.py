@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter.ttk as ttk
-import Second_win
+import indicate_6_3_8
 from PIL import Image, ImageTk
 import ewd_logic_of_indication
 import fctl_logic_of_indication
@@ -8,6 +8,7 @@ import pfd_logic_of_indication
 from tkinter.messagebox import *
 import sys
 import os
+
 
 
 class main_app:

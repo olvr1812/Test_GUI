@@ -43,6 +43,7 @@ def OuEEE():
     label.pack(side=RIGHT)
     label.after(0, update, 0, frames, frameCnt, label, 40)
     label1.pack_forget()
+    btn.config(state=[DISABLED])
 
 if ans == 'NO':
     label1.pack(side=LEFT)
